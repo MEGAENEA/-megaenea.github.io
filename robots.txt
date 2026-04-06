@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://tuonome.github.io/desktop-toggle/sitemap.xml

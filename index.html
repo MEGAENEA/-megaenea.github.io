@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>DesktopToggle – Hide desktop icons with one click | Free for Windows</title>
+  <meta name="description" content="DesktopToggle is a free Windows 10/11 utility that hides and shows desktop icons with one click or Ctrl+B. Lightweight, silent, auto-starts with Windows. Free download."/>
+  <meta name="keywords" content="hide desktop icons windows, desktop toggle, nascondere icone desktop, cacher icones bureau, desktop symbole verstecken, ocultar iconos escritorio"/>
+  <meta name="robots" content="index, follow"/>
+  <link rel="canonical" href="https://tuonome.github.io/desktop-toggle/"/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:title" content="DesktopToggle – Hide desktop icons instantly"/>
+  <meta property="og:description" content="Free Windows utility: hide/show desktop icons with one click or Ctrl+B."/>
+  <meta property="og:url" content="https://tuonome.github.io/desktop-toggle/"/>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"DesktopToggle","operatingSystem":"Windows 10, Windows 11","applicationCategory":"UtilitiesApplication","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"Free utility to hide and show Windows desktop icons with one click or Ctrl+B.","softwareVersion":"1.0","downloadUrl":"https://tuonome.github.io/desktop-toggle/DesktopToggle.zip"}</script>
+
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3607110507795868" crossorigin="anonymous"></script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root{--bg:#0a0a0f;--border:#1e1e2e;--accent:#00e5a0;--accent2:#0080ff;--danger:#ff4757;--text:#e8e8f0;--muted:#6b6b80;--card:#13131c}
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{background:var(--bg);color:var(--text);font-family:'Syne',sans-serif;min-height:100vh;overflow-x:hidden}
+    body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(0,229,160,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(0,229,160,.03) 1px,transparent 1px);background-size:40px 40px;pointer-events:none;z-index:0}
+    .blob{position:fixed;width:600px;height:600px;border-radius:50%;filter:blur(120px);pointer-events:none;z-index:0;opacity:.28}
+    .blob-1{background:var(--accent);top:-200px;left:-150px}
+    .blob-2{background:var(--accent2);bottom:-200px;right:-150px}
+
+    /* ══ 3-COLUMN LAYOUT ══ */
+    .page-grid{position:relative;z-index:1;display:grid;grid-template-columns:180px 1fr 180px;max-width:1260px;margin:0 auto;gap:0 0}
+    nav{grid-column:1/-1}
+    footer{grid-column:1/-1}
+
+    /* ══ SIDEBAR ADS ══ */
+    .sidebar{padding-top:24px;display:flex;justify-content:center}
+    .sidebar-ad{
+      position:sticky;top:76px;
+      width:160px;min-height:600px;
+      background:var(--card);
+      border:2px dashed rgba(0,229,160,.25);
+      border-radius:14px;
+      display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;
+      padding:12px 6px;
+      color:var(--muted);font-family:'JetBrains Mono',monospace;font-size:.65rem;
+      text-align:center;
+    }
+    .sidebar-ad .ad-label{
+      font-size:.6rem;text-transform:uppercase;letter-spacing:.1em;
+      color:rgba(0,229,160,.4);margin-bottom:4px;
+    }
+    .sidebar-ad .ad-size{
+      font-size:.75rem;color:rgba(255,255,255,.15);
+      border:1px solid var(--border);padding:6px 10px;border-radius:6px;
+    }
+    /* Replace .sidebar-ad contents with your AdSense <ins> tag */
+
+    /* ══ MAIN ══ */
+    .main-col{min-width:0;padding:0 28px}
+
+    /* ══ NAV ══ */
+    nav{position:sticky;top:0;z-index:100;background:rgba(10,10,15,.88);backdrop-filter:blur(14px);border-bottom:1px solid var(--border);padding:14px 24px}
+    .nav-inner{display:flex;align-items:center;justify-content:space-between;gap:16px}
+    .logo{font-size:1.05rem;font-weight:800;color:var(--accent);display:flex;align-items:center;gap:6px;white-space:nowrap}
+    .logo span{color:var(--text)}
+    .nav-right{display:flex;align-items:center;gap:12px}
+    .nav-badge{font-family:'JetBrains Mono',monospace;font-size:.68rem;padding:3px 8px;background:var(--border);border-radius:4px;color:var(--muted)}
+
+    /* ══ LANGUAGE SELECTOR ══ */
+    .lang-selector{display:flex;align-items:center;gap:4px;background:var(--card);border:1px solid var(--border);border-radius:8px;padding:4px 6px}
+    .lang-btn{background:none;border:none;color:var(--muted);font-family:'JetBrains Mono',monospace;font-size:.68rem;padding:3px 6px;border-radius:5px;cursor:pointer;transition:all .15s;white-space:nowrap}
+    .lang-btn:hover{color:var(--text);background:var(--border)}
+    .lang-btn.active{color:#000;background:var(--accent);font-weight:700}
+
+    /* ══ HERO ══ */
+    .hero{padding:72px 0 44px;text-align:center}
+    .hero-tag{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:.72rem;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);border:1px solid rgba(0,229,160,.3);padding:5px 14px;border-radius:20px;margin-bottom:26px;animation:fadeUp .6s ease both}
+    h1{font-size:clamp(1.9rem,4.5vw,3.2rem);font-weight:800;line-height:1.1;letter-spacing:-2px;animation:fadeUp .6s .1s ease both}
+    h1 em{font-style:normal;color:var(--accent)}
+    .hero-sub{margin:18px auto 0;max-width:500px;color:var(--muted);font-size:.95rem;line-height:1.75;animation:fadeUp .6s .2s ease both}
+
+    /* ══ DEMO ══ */
+    .demo-wrap{margin:36px auto;display:flex;justify-content:center;animation:fadeUp .6s .3s ease both}
+    .demo-screen{width:250px;background:var(--card);border:1px solid var(--border);border-radius:16px;padding:16px;box-shadow:0 0 60px rgba(0,229,160,.07)}
+    .demo-screen::before{content:'● ● ●';display:block;font-size:.55rem;letter-spacing:.35em;color:var(--muted);margin-bottom:12px}
+    .desktop-mock{background:#1a1a28;border-radius:8px;height:120px;display:grid;grid-template-columns:repeat(4,1fr);align-content:start;gap:8px;padding:10px;transition:all .4s}
+    .icon-mock{display:flex;flex-direction:column;align-items:center;gap:4px;transition:opacity .4s,transform .4s}
+    .icon-mock .ico{width:24px;height:24px;background:var(--border);border-radius:5px}
+    .icon-mock .lbl{width:18px;height:3px;background:var(--muted);border-radius:2px;opacity:.5}
+    .demo-screen.hidden-state .icon-mock{opacity:0;transform:scale(.75)}
+    .tray-bar{margin-top:8px;background:#1a1a28;border-radius:6px;height:24px;display:flex;align-items:center;justify-content:flex-end;padding:0 8px;gap:5px}
+    .tray-icon{width:11px;height:11px;border-radius:50%;cursor:pointer;transition:all .2s}
+    .tray-icon.on{background:var(--accent);box-shadow:0 0 7px var(--accent)}
+    .tray-icon.off{background:var(--muted)}
+    .demo-screen.hidden-state .tray-icon{background:var(--muted);box-shadow:none}
+    .demo-label{text-align:center;margin-top:10px;font-family:'JetBrains Mono',monospace;font-size:.7rem}
+    .status-on{color:var(--accent)} .status-off{color:var(--danger);display:none}
+    .demo-screen.hidden-state .status-on{display:none} .demo-screen.hidden-state .status-off{display:inline}
+    .btn-demo{margin-top:10px;width:100%;background:var(--border);border:1px solid rgba(255,255,255,.06);color:var(--text);font-family:'Syne',sans-serif;font-size:.78rem;padding:7px;border-radius:7px;cursor:pointer;transition:background .2s}
+    .btn-demo:hover{background:#1e1e30}
+
+    /* ══ PILLS ══ */
+    .pills{display:flex;flex-wrap:wrap;justify-content:center;gap:7px;margin:0 0 44px;animation:fadeUp .6s .4s ease both}
+    .pill{display:flex;align-items:center;gap:6px;background:var(--card);border:1px solid var(--border);padding:6px 13px;border-radius:30px;font-size:.78rem;color:var(--muted)}
+    .pill .dot{width:6px;height:6px;border-radius:50%;background:var(--accent);flex-shrink:0}
+
+    /* ══ AD INLINE ══ */
+    .ad-slot{background:var(--card);border:2px dashed rgba(0,229,160,.2);border-radius:12px;padding:14px;text-align:center;color:var(--muted);font-family:'JetBrains Mono',monospace;font-size:.7rem;margin:36px 0;min-height:96px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:6px}
+    .ad-slot .ad-type{font-size:.6rem;color:rgba(0,229,160,.35);text-transform:uppercase;letter-spacing:.1em}
+
+    /* ══ SECTIONS ══ */
+    section{margin:56px 0}
+    h2{font-size:1.35rem;font-weight:800;letter-spacing:-.5px;margin-bottom:22px;display:flex;align-items:center;gap:10px}
+    h2::after{content:'';flex:1;height:1px;background:var(--border)}
+    .num{font-family:'JetBrains Mono',monospace;font-size:.68rem;color:var(--accent);border:1px solid rgba(0,229,160,.3);padding:2px 7px;border-radius:4px}
+
+    .features{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px}
+    .feature-card{background:var(--card);border:1px solid var(--border);border-radius:13px;padding:20px;transition:border-color .2s,transform .2s}
+    .feature-card:hover{border-color:rgba(0,229,160,.3);transform:translateY(-3px)}
+    .feature-icon{font-size:1.4rem;margin-bottom:9px}
+    .feature-card h3{font-size:.88rem;margin-bottom:5px}
+    .feature-card p{font-size:.78rem;color:var(--muted);line-height:1.65}
+
+    .steps{display:flex;flex-direction:column}
+    .step{display:flex;gap:16px;align-items:flex-start;position:relative;padding-bottom:26px}
+    .step:last-child{padding-bottom:0}
+    .step:not(:last-child)::before{content:'';position:absolute;left:16px;top:36px;width:2px;bottom:0;background:var(--border)}
+    .step-num{flex-shrink:0;width:34px;height:34px;border-radius:50%;background:var(--card);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--accent);z-index:1}
+    .step-body h3{font-size:.92rem;margin-bottom:5px}
+    .step-body p{font-size:.8rem;color:var(--muted);line-height:1.7}
+    .step-body code{font-family:'JetBrains Mono',monospace;background:var(--border);padding:2px 5px;border-radius:4px;font-size:.76rem;color:var(--accent)}
+
+    .req-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:9px}
+    .req-item{background:var(--card);border:1px solid var(--border);border-radius:9px;padding:13px 16px;font-size:.8rem}
+    .req-item strong{display:block;color:var(--muted);font-size:.68rem;text-transform:uppercase;letter-spacing:.08em;margin-bottom:3px}
+
+    .download-box{background:var(--card);border:1px solid rgba(0,229,160,.25);border-radius:18px;padding:40px 32px;text-align:center;box-shadow:0 0 80px rgba(0,229,160,.06);position:relative;overflow:hidden}
+    .download-box::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%,rgba(0,229,160,.07) 0%,transparent 70%)}
+    .download-box h2{justify-content:center} .download-box h2::after{display:none}
+    .download-box p{color:var(--muted);margin:10px 0 26px;font-size:.86rem}
+    .btn-download{display:inline-flex;align-items:center;gap:9px;background:var(--accent);color:#000;font-family:'Syne',sans-serif;font-weight:800;font-size:.92rem;padding:14px 30px;border-radius:11px;text-decoration:none;transition:transform .2s,box-shadow .2s;box-shadow:0 0 30px rgba(0,229,160,.3);position:relative}
+    .btn-download:hover{transform:translateY(-2px);box-shadow:0 0 50px rgba(0,229,160,.5)}
+    .btn-download svg{width:17px;height:17px}
+    .dl-meta{margin-top:16px;font-family:'JetBrains Mono',monospace;font-size:.68rem;color:var(--muted);display:flex;justify-content:center;gap:16px;flex-wrap:wrap}
+    .dl-meta span::before{content:'▸ ';color:var(--accent)}
+
+    .faq{display:flex;flex-direction:column;gap:9px}
+    .faq-item{background:var(--card);border:1px solid var(--border);border-radius:11px;overflow:hidden}
+    .faq-q{width:100%;text-align:left;background:none;border:none;color:var(--text);font-family:'Syne',sans-serif;font-size:.86rem;font-weight:700;padding:15px 17px;display:flex;justify-content:space-between;align-items:center;cursor:pointer;transition:color .2s}
+    .faq-q:hover{color:var(--accent)}
+    .faq-q .arrow{transition:transform .3s;font-size:.72rem;color:var(--muted)}
+    .faq-item.open .faq-q .arrow{transform:rotate(180deg)}
+    .faq-a{max-height:0;overflow:hidden;transition:max-height .35s ease,padding .2s;font-size:.8rem;color:var(--muted);line-height:1.7;padding:0 17px}
+    .faq-item.open .faq-a{max-height:220px;padding:0 17px 15px}
+
+    footer{border-top:1px solid var(--border);padding:26px 24px;text-align:center;font-size:.76rem;color:var(--muted);font-family:'JetBrains Mono',monospace}
+
+    @keyframes fadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
+
+    @media(max-width:960px){
+      .page-grid{grid-template-columns:1fr}
+      .sidebar{display:none}
+    }
+    @media(max-width:580px){h1{letter-spacing:-1px}.download-box{padding:26px 14px}.main-col{padding:0 16px}}
+  </style>
+</head>
+<body>
+<div class="blob blob-1"></div>
+<div class="blob blob-2"></div>
+
+<div class="page-grid">
+
+<!-- ══ NAV ══ -->
+<nav>
+  <div class="nav-inner">
+    <div class="logo">Desktop<span>Toggle</span></div>
+    <div class="nav-right">
+      <div class="nav-badge">v1.0 · Windows</div>
+      <div class="lang-selector" id="langSelector">
+        <button class="lang-btn active" onclick="setLang('en')">EN</button>
+        <button class="lang-btn" onclick="setLang('it')">IT</button>
+        <button class="lang-btn" onclick="setLang('fr')">FR</button>
+        <button class="lang-btn" onclick="setLang('de')">DE</button>
+        <button class="lang-btn" onclick="setLang('es')">ES</button>
+        <button class="lang-btn" onclick="setLang('ru')">RU</button>
+        <button class="lang-btn" onclick="setLang('zh')">中文</button>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- ══ SIDEBAR LEFT ══ -->
+<aside class="sidebar">
+  <div class="sidebar-ad">
+    <!-- Banner Sinistro -->
+    <ins class="adsbygoogle"
+         style="display:inline-block;width:160px;height:600px"
+         data-ad-client="ca-pub-3607110507795868"
+         data-ad-slot="5410921618"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+</aside>
+
+<!-- ══ MAIN CONTENT ══ -->
+<main class="main-col">
+
+  <div class="hero">
+    <div class="hero-tag" data-i18n="tag">🖥 Free utility for Windows</div>
+    <h1 data-i18n="h1">Hide desktop icons<br><em data-i18n="h1em">instantly</em></h1>
+    <p class="hero-sub" data-i18n="sub">One click on the tray icon or a keyboard shortcut — desktop icons disappear. Simple, lightweight, silent.</p>
+  </div>
+
+  <div class="demo-wrap">
+    <div class="demo-screen" id="demoScreen">
+      <div class="desktop-mock">
+        <div class="icon-mock"><div class="ico"></div><div class="lbl"></div></div>
+        <div class="icon-mock"><div class="ico"></div><div class="lbl"></div></div>
+        <div class="icon-mock"><div class="ico"></div><div class="lbl"></div></div>
+        <div class="icon-mock"><div class="ico"></div><div class="lbl"></div></div>
+        <div class="icon-mock"><div class="ico"></div><div class="lbl"></div></div>
+        <div class="icon-mock"><div class="ico"></div><div class="lbl"></div></div>
+        <div class="icon-mock"><div class="ico"></div><div class="lbl"></div></div>
+        <div class="icon-mock"><div class="ico"></div><div class="lbl"></div></div>
+      </div>
+      <div class="tray-bar">
+        <div class="tray-icon on" id="trayIcon"></div>
+      </div>
+      <div class="demo-label">Icons: <span class="status-on" data-i18n="visible">VISIBLE ●</span><span class="status-off" data-i18n="hidden">HIDDEN ●</span></div>
+      <button class="btn-demo" onclick="toggleDemo()" data-i18n="trydemo">▶ Try the demo</button>
+    </div>
+  </div>
+
+  <div class="pills">
+    <div class="pill"><span class="dot"></span><span data-i18n="p1">Free</span></div>
+    <div class="pill"><span class="dot"></span><span data-i18n="p2">No complex setup</span></div>
+    <div class="pill"><span class="dot"></span><span data-i18n="p3">Auto-starts with Windows</span></div>
+    <div class="pill"><span class="dot"></span><span data-i18n="p4">~2 MB RAM</span></div>
+    <div class="pill"><span class="dot"></span><span data-i18n="p5">Open source</span></div>
+  </div>
+
+  <!-- AD HORIZONTAL 1 -->
+  <div class="ad-slot">
+    <!-- Banner Top -->
+    <ins class="adsbygoogle"
+         style="display:inline-block;width:728px;height:90px"
+         data-ad-client="ca-pub-3607110507795868"
+         data-ad-slot="1941180978"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+
+  <section>
+    <h2><span class="num">01</span> <span data-i18n="feat_title">Features</span></h2>
+    <div class="features">
+      <div class="feature-card"><div class="feature-icon">🖱️</div><h3 data-i18n="f1t">Tray click</h3><p data-i18n="f1d">The system tray icon lets you toggle with a single left click.</p></div>
+      <div class="feature-card"><div class="feature-icon">⌨️</div><h3 data-i18n="f2t">Hotkey Ctrl+B</h3><p data-i18n="f2d">Global shortcut that works even when another app is in focus.</p></div>
+      <div class="feature-card"><div class="feature-icon">🚀</div><h3 data-i18n="f3t">Auto-start</h3><p data-i18n="f3d">Automatically added to Windows startup. No manual launch needed.</p></div>
+      <div class="feature-card"><div class="feature-icon">💤</div><h3 data-i18n="f4t">Ultra-light</h3><p data-i18n="f4d">Uses ~2 MB RAM and virtually zero CPU. You won't know it's running.</p></div>
+      <div class="feature-card"><div class="feature-icon">🔒</div><h3 data-i18n="f5t">Instant privacy</h3><p data-i18n="f5d">Screen sharing? Hide everything in one millisecond before you share.</p></div>
+      <div class="feature-card"><div class="feature-icon">🎨</div><h3 data-i18n="f6t">Clean desktop</h3><p data-i18n="f6d">Perfect for screenshots, presentations, or just a tidy workspace.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="num">02</span> <span data-i18n="how_title">How it works</span></h2>
+    <div class="steps">
+      <div class="step"><div class="step-num">1</div><div class="step-body"><h3 data-i18n="s1t">Install Python</h3><p data-i18n="s1d">Download Python from <code>python.org</code>. During setup check <strong>"Add Python to PATH"</strong>.</p></div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-body"><h3 data-i18n="s2t">Download DesktopToggle</h3><p data-i18n="s2d">Click the Download button below. You'll get a <code>.zip</code> with everything needed.</p></div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-body"><h3 data-i18n="s3t">Run the installer</h3><p data-i18n="s3d">Extract the zip, double-click <code>INSTALLA_DOPPIO_CLICK.bat</code>. Accept admin permissions. Done in 30 seconds.</p></div></div>
+      <div class="step"><div class="step-num">4</div><div class="step-body"><h3 data-i18n="s4t">Ready!</h3><p data-i18n="s4d">The icon appears in the system tray. From now on it starts automatically every time Windows boots.</p></div></div>
+    </div>
+  </section>
+
+  <!-- AD HORIZONTAL 2 -->
+  <div class="ad-slot">
+    <!-- Banner Medio -->
+    <ins class="adsbygoogle"
+         style="display:inline-block;width:728px;height:90px"
+         data-ad-client="ca-pub-3607110507795868"
+         data-ad-slot="8315017636"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+
+  <section>
+    <h2><span class="num">03</span> <span data-i18n="req_title">Requirements</span></h2>
+    <div class="req-grid">
+      <div class="req-item"><strong data-i18n="r1k">Operating System</strong><span data-i18n="r1v">Windows 10 / 11</span></div>
+      <div class="req-item"><strong data-i18n="r2k">Python</strong><span data-i18n="r2v">3.10 or higher</span></div>
+      <div class="req-item"><strong data-i18n="r3k">RAM usage</strong><span data-i18n="r3v">~2 MB</span></div>
+      <div class="req-item"><strong data-i18n="r4k">Disk space</strong><span data-i18n="r4v">&lt; 5 MB</span></div>
+      <div class="req-item"><strong data-i18n="r5k">Internet</strong><span data-i18n="r5v">Only for installation</span></div>
+      <div class="req-item"><strong data-i18n="r6k">Permissions</strong><span data-i18n="r6v">Admin (install only)</span></div>
+    </div>
+  </section>
+
+  <section id="download">
+    <div class="download-box">
+      <h2><span data-i18n="dl_title">Free Download</span></h2>
+      <p data-i18n="dl_sub">No registration. No adware. Just the program.</p>
+      <a href="DesktopToggle.zip" class="btn-download" download>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+        <span data-i18n="dl_btn">Download DesktopToggle.zip</span>
+      </a>
+      <div class="dl-meta">
+        <span data-i18n="dl_v">Version 1.0</span>
+        <span>Windows 10/11</span>
+        <span data-i18n="dl_req">Python required</span>
+        <span data-i18n="dl_free">Free</span>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="num">04</span> <span data-i18n="faq_title">FAQ</span></h2>
+    <div class="faq">
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)"><span data-i18n="q1">My antivirus flags it as a threat — is it safe?</span> <span class="arrow">▼</span></button>
+        <div class="faq-a" data-i18n="a1">This is a very common false positive with Python programs that use Windows APIs. The source code is included in the zip and readable by anyone. Add the folder to your antivirus exclusions to fix it.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)"><span data-i18n="q2">How do I uninstall it?</span> <span class="arrow">▼</span></button>
+        <div class="faq-a" data-i18n="a2">Delete the shortcut at C:\Users\YourName\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup\DesktopToggle.lnk, then delete the DesktopToggle folder.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)"><span data-i18n="q3">Does it work on Windows 7 or 8?</span> <span class="arrow">▼</span></button>
+        <div class="faq-a" data-i18n="a3">The program is tested on Windows 10 and 11. It may work on older versions but is not guaranteed.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)"><span data-i18n="q4">Can I change the keyboard shortcut?</span> <span class="arrow">▼</span></button>
+        <div class="faq-a" data-i18n="a4">Yes! Open desktop_toggle.py with a text editor and change the VK_B line. Search "Virtual Key Codes Windows" to find key codes.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)"><span data-i18n="q5">Does it collect any data?</span> <span class="arrow">▼</span></button>
+        <div class="faq-a" data-i18n="a5">No. No internet connection, nothing sent anywhere. It does one thing only: show and hide desktop icons.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AD HORIZONTAL 3 -->
+  <div class="ad-slot">
+    <!-- Banner Bottom -->
+    <ins class="adsbygoogle"
+         style="display:inline-block;width:728px;height:90px"
+         data-ad-client="ca-pub-3607110507795868"
+         data-ad-slot="9718869692"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+
+</main>
+
+<!-- ══ SIDEBAR RIGHT ══ -->
+<aside class="sidebar">
+  <div class="sidebar-ad">
+    <!-- Banner Destro -->
+    <ins class="adsbygoogle"
+         style="display:inline-block;width:160px;height:600px"
+         data-ad-client="ca-pub-3607110507795868"
+         data-ad-slot="8597359717"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+</aside>
+
+<footer>
+  DesktopToggle · Free &amp; open source · Made with ♥ for clean desktops
+</footer>
+
+</div><!-- /page-grid -->
+
+<script>
+// ══ DEMO ══
+function toggleDemo(){document.getElementById('demoScreen').classList.toggle('hidden-state')}
+document.getElementById('trayIcon').addEventListener('click',toggleDemo)
+
+// ══ FAQ ══
+function toggleFaq(btn){
+  const item=btn.closest('.faq-item'),isOpen=item.classList.contains('open')
+  document.querySelectorAll('.faq-item').forEach(i=>i.classList.remove('open'))
+  if(!isOpen)item.classList.add('open')
+}
+
+// ══ SCROLL REVEAL ══
+const obs=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting){x.target.style.opacity='1';x.target.style.transform='translateY(0)'}}),{threshold:.08})
+document.querySelectorAll('section,.ad-slot').forEach(el=>{el.style.cssText+='opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .6s ease';obs.observe(el)})
+
+// ══ TRANSLATIONS ══
+const T = {
+  en:{tag:"🖥 Free utility for Windows",h1:"Hide desktop icons",h1em:"instantly",sub:"One click on the tray icon or a keyboard shortcut — desktop icons disappear. Simple, lightweight, silent.",p1:"Free",p2:"No complex setup",p3:"Auto-starts with Windows",p4:"~2 MB RAM",p5:"Open source",feat_title:"Features",f1t:"Tray click",f1d:"The system tray icon lets you toggle with a single left click.",f2t:"Hotkey Ctrl+B",f2d:"Global shortcut that works even when another app is in focus.",f3t:"Auto-start",f3d:"Automatically added to Windows startup. No manual launch needed.",f4t:"Ultra-light",f4d:"Uses ~2 MB RAM and virtually zero CPU. You won't know it's running.",f5t:"Instant privacy",f5d:"Screen sharing? Hide everything in one millisecond before you share.",f6t:"Clean desktop",f6d:"Perfect for screenshots, presentations, or just a tidy workspace.",how_title:"How it works",s1t:"Install Python",s1d:'Download Python from python.org. During setup check "Add Python to PATH".',s2t:"Download DesktopToggle",s2d:"Click the Download button below. You'll get a .zip with everything needed.",s3t:"Run the installer",s3d:"Extract the zip, double-click INSTALLA_DOPPIO_CLICK.bat. Accept admin permissions. Done in 30 seconds.",s4t:"Ready!",s4d:"The icon appears in the system tray. From now on it starts automatically every time Windows boots.",req_title:"Requirements",r1k:"Operating System",r1v:"Windows 10 / 11",r2k:"Python",r2v:"3.10 or higher",r3k:"RAM usage",r3v:"~2 MB",r4k:"Disk space",r4v:"< 5 MB",r5k:"Internet",r5v:"Only for installation",r6k:"Permissions",r6v:"Admin (install only)",dl_title:"Free Download",dl_sub:"No registration. No adware. Just the program.",dl_btn:"Download DesktopToggle.zip",dl_v:"Version 1.0",dl_req:"Python required",dl_free:"Free",faq_title:"FAQ",q1:"My antivirus flags it as a threat — is it safe?",a1:"This is a very common false positive with Python programs that use Windows APIs. The source code is included in the zip. Add the folder to your antivirus exclusions.",q2:"How do I uninstall it?",a2:"Delete the shortcut in the Windows Startup folder, then delete the DesktopToggle folder from your profile.",q3:"Does it work on Windows 7 or 8?",a3:"Tested on Windows 10 and 11. May work on older versions but not guaranteed.",q4:"Can I change the keyboard shortcut?",a4:"Yes! Open desktop_toggle.py and change the VK_B line. Search 'Virtual Key Codes Windows' for key codes.",q5:"Does it collect any data?",a5:"No. No internet connection, nothing sent anywhere. It does one thing: show and hide desktop icons.",visible:"VISIBLE ●",hidden:"HIDDEN ●",trydemo:"▶ Try the demo"},
+
+  it:{tag:"🖥 Utility gratuita per Windows",h1:"Nascondi le icone del desktop",h1em:"istantaneamente",sub:"Un click sull'icona nel tray o una combinazione di tasti — le icone del desktop spariscono. Semplice, leggero, silenzioso.",p1:"Gratuito",p2:"Nessuna installazione complessa",p3:"Si avvia con Windows",p4:"~2 MB di RAM",p5:"Open source",feat_title:"Funzionalità",f1t:"Click nel tray",f1d:"L'icona nella barra di sistema ti permette di fare toggle con un solo click sinistro.",f2t:"Hotkey Ctrl+B",f2d:"Combinazione di tasti globale che funziona anche in un altro programma.",f3t:"Avvio automatico",f3d:"Si aggiunge all'avvio di Windows automaticamente.",f4t:"Leggerissimo",f4d:"Usa circa 2 MB di RAM e praticamente zero CPU.",f5t:"Privacy immediata",f5d:"Condividi lo schermo? Nascondi tutto in un millisecondo prima di condividere.",f6t:"Desktop pulito",f6d:"Ideale per screenshot, presentazioni o semplicemente per ordine mentale.",how_title:"Come funziona",s1t:"Installa Python",s1d:'Scarica Python da python.org. Durante l\'installazione spunta "Add Python to PATH".',s2t:"Scarica DesktopToggle",s2d:"Clicca il pulsante Download in fondo. Ottieni un file .zip con tutto il necessario.",s3t:"Esegui l'installer",s3d:"Estrai lo zip, doppio click su INSTALLA_DOPPIO_CLICK.bat. Accetta i permessi. Fatto in 30 secondi.",s4t:"Pronto!",s4d:"L'icona appare nel system tray. Da quel momento si avvia ad ogni accensione del PC.",req_title:"Requisiti",r1k:"Sistema operativo",r1v:"Windows 10 / 11",r2k:"Python",r2v:"3.10 o superiore",r3k:"RAM utilizzata",r3v:"~2 MB",r4k:"Spazio su disco",r4v:"< 5 MB",r5k:"Connessione internet",r5v:"Solo per l'installazione",r6k:"Permessi",r6v:"Amministratore (solo install)",dl_title:"Download gratuito",dl_sub:"Nessuna registrazione. Nessun adware. Solo il programma.",dl_btn:"Scarica DesktopToggle.zip",dl_v:"Versione 1.0",dl_req:"Python richiesto",dl_free:"Gratuito",faq_title:"Domande frequenti",q1:"Il mio antivirus lo segnala come minaccia — è sicuro?",a1:"È un falso positivo comune con programmi Python che usano API di Windows. Il codice sorgente è incluso nello zip. Aggiungi la cartella alle esclusioni dell'antivirus.",q2:"Come disinstallo il programma?",a2:"Elimina il collegamento nella cartella Avvio automatico di Windows, poi cancella la cartella DesktopToggle.",q3:"Funziona su Windows 7 o 8?",a3:"Testato su Windows 10 e 11. Potrebbe funzionare su versioni precedenti ma non è garantito.",q4:"Posso cambiare la combinazione di tasti?",a4:"Sì! Apri desktop_toggle.py e modifica la riga con VK_B. Cerca 'Virtual Key Codes Windows' per i codici.",q5:"Il programma raccoglie dati?",a5:"No. Nessuna connessione internet, nessun dato inviato. Fa solo una cosa: mostrare e nascondere le icone del desktop.",visible:"VISIBILI ●",hidden:"NASCOSTE ●",trydemo:"▶ Prova la demo"},
+
+  fr:{tag:"🖥 Utilitaire gratuit pour Windows",h1:"Masquez les icônes du bureau",h1em:"instantanément",sub:"Un clic sur l'icône dans la barre des tâches ou un raccourci clavier — les icônes du bureau disparaissent.",p1:"Gratuit",p2:"Installation simple",p3:"Démarrage automatique",p4:"~2 Mo de RAM",p5:"Open source",feat_title:"Fonctionnalités",f1t:"Clic dans le tray",f1d:"L'icône dans la zone de notification permet de basculer d'un simple clic gauche.",f2t:"Raccourci Ctrl+B",f2d:"Raccourci global qui fonctionne même dans d'autres applications.",f3t:"Démarrage auto",f3d:"Ajouté automatiquement au démarrage de Windows.",f4t:"Ultra-léger",f4d:"Utilise ~2 Mo de RAM et pratiquement zéro CPU.",f5t:"Confidentialité instantanée",f5d:"Partage d'écran ? Masquez tout en une milliseconde.",f6t:"Bureau propre",f6d:"Idéal pour les captures d'écran, présentations ou simplement l'ordre.",how_title:"Comment ça marche",s1t:"Installer Python",s1d:"Téléchargez Python sur python.org. Cochez « Add Python to PATH ».",s2t:"Télécharger DesktopToggle",s2d:"Cliquez sur le bouton Télécharger. Vous obtenez un .zip avec tout le nécessaire.",s3t:"Lancer l'installateur",s3d:"Extrayez le zip, double-cliquez sur INSTALLA_DOPPIO_CLICK.bat. Acceptez les permissions.",s4t:"Prêt !",s4d:"L'icône apparaît dans la barre des tâches. Elle démarre automatiquement à chaque démarrage.",req_title:"Configuration requise",r1k:"Système d'exploitation",r1v:"Windows 10 / 11",r2k:"Python",r2v:"3.10 ou supérieur",r3k:"RAM utilisée",r3v:"~2 Mo",r4k:"Espace disque",r4v:"< 5 Mo",r5k:"Internet",r5v:"Uniquement pour l'installation",r6k:"Permissions",r6v:"Administrateur (install uniquement)",dl_title:"Téléchargement gratuit",dl_sub:"Aucune inscription. Aucun adware. Juste le programme.",dl_btn:"Télécharger DesktopToggle.zip",dl_v:"Version 1.0",dl_req:"Python requis",dl_free:"Gratuit",faq_title:"FAQ",q1:"Mon antivirus le signale comme menace — est-ce sûr ?",a1:"C'est un faux positif courant avec les programmes Python utilisant des API Windows. Le code source est inclus dans le zip. Ajoutez le dossier aux exclusions.",q2:"Comment désinstaller ?",a2:"Supprimez le raccourci dans le dossier Démarrage de Windows, puis supprimez le dossier DesktopToggle.",q3:"Fonctionne sur Windows 7 ou 8 ?",a3:"Testé sur Windows 10 et 11. Peut fonctionner sur des versions antérieures sans garantie.",q4:"Puis-je changer le raccourci clavier ?",a4:"Oui ! Ouvrez desktop_toggle.py et modifiez la ligne VK_B.",q5:"Collecte-t-il des données ?",a5:"Non. Aucune connexion internet, rien d'envoyé nulle part.",visible:"VISIBLES ●",hidden:"MASQUÉES ●",trydemo:"▶ Essayer la démo"},
+
+  de:{tag:"🖥 Kostenloses Windows-Dienstprogramm",h1:"Desktop-Symbole ausblenden",h1em:"sofort",sub:"Ein Klick auf das Tray-Symbol oder ein Tastenkürzel — Desktop-Symbole verschwinden. Einfach, leicht, lautlos.",p1:"Kostenlos",p2:"Einfache Installation",p3:"Autostart mit Windows",p4:"~2 MB RAM",p5:"Open source",feat_title:"Funktionen",f1t:"Tray-Klick",f1d:"Das Tray-Symbol ermöglicht das Umschalten mit einem einzigen Linksklick.",f2t:"Hotkey Ctrl+B",f2d:"Globales Kürzel, das auch in anderen Anwendungen funktioniert.",f3t:"Autostart",f3d:"Wird automatisch zum Windows-Autostart hinzugefügt.",f4t:"Ultraleicht",f4d:"Verwendet ~2 MB RAM und praktisch null CPU.",f5t:"Sofortige Privatsphäre",f5d:"Bildschirm teilen? Alles in einer Millisekunde ausblenden.",f6t:"Sauberer Desktop",f6d:"Ideal für Screenshots, Präsentationen oder einfach Ordnung.",how_title:"Funktionsweise",s1t:"Python installieren",s1d:'Python von python.org herunterladen. „Add Python to PATH" ankreuzen.',s2t:"DesktopToggle herunterladen",s2d:"Auf den Download-Button klicken. Sie erhalten eine .zip-Datei.",s3t:"Installer ausführen",s3d:"Zip entpacken, INSTALLA_DOPPIO_CLICK.bat doppelklicken. Admin-Rechte bestätigen.",s4t:"Fertig!",s4d:"Das Symbol erscheint im System-Tray und startet automatisch mit Windows.",req_title:"Systemanforderungen",r1k:"Betriebssystem",r1v:"Windows 10 / 11",r2k:"Python",r2v:"3.10 oder höher",r3k:"RAM-Nutzung",r3v:"~2 MB",r4k:"Speicherplatz",r4v:"< 5 MB",r5k:"Internet",r5v:"Nur für die Installation",r6k:"Berechtigungen",r6v:"Administrator (nur Install)",dl_title:"Kostenloser Download",dl_sub:"Keine Registrierung. Kein Adware. Nur das Programm.",dl_btn:"DesktopToggle.zip herunterladen",dl_v:"Version 1.0",dl_req:"Python erforderlich",dl_free:"Kostenlos",faq_title:"FAQ",q1:"Mein Antivirus meldet es als Bedrohung — ist es sicher?",a1:"Dies ist ein häufiger Fehlalarm bei Python-Programmen, die Windows-APIs verwenden. Der Quellcode liegt im Zip. Ordner zu Ausnahmen hinzufügen.",q2:"Wie deinstalliere ich es?",a2:"Verknüpfung im Autostart-Ordner löschen, dann den DesktopToggle-Ordner entfernen.",q3:"Funktioniert es auf Windows 7 oder 8?",a3:"Getestet auf Windows 10 und 11. Ältere Versionen möglicherweise, ohne Garantie.",q4:"Kann ich das Tastenkürzel ändern?",a4:"Ja! desktop_toggle.py öffnen und die VK_B-Zeile ändern.",q5:"Werden Daten gesammelt?",a5:"Nein. Keine Internetverbindung, nichts wird gesendet.",visible:"SICHTBAR ●",hidden:"AUSGEBLENDET ●",trydemo:"▶ Demo ausprobieren"},
+
+  es:{tag:"🖥 Utilidad gratuita para Windows",h1:"Oculta los iconos del escritorio",h1em:"al instante",sub:"Un clic en el icono de la bandeja o un atajo de teclado — los iconos del escritorio desaparecen.",p1:"Gratis",p2:"Sin instalación compleja",p3:"Inicio automático",p4:"~2 MB RAM",p5:"Código abierto",feat_title:"Características",f1t:"Clic en bandeja",f1d:"El icono en la bandeja del sistema permite alternar con un solo clic izquierdo.",f2t:"Atajo Ctrl+B",f2d:"Atajo global que funciona incluso en otras aplicaciones.",f3t:"Inicio automático",f3d:"Se agrega automáticamente al inicio de Windows.",f4t:"Ultra ligero",f4d:"Usa ~2 MB de RAM y prácticamente cero CPU.",f5t:"Privacidad instantánea",f5d:"¿Compartiendo pantalla? Oculta todo en un milisegundo.",f6t:"Escritorio limpio",f6d:"Ideal para capturas de pantalla, presentaciones u orden.",how_title:"Cómo funciona",s1t:"Instalar Python",s1d:'Descarga Python de python.org. Marca "Add Python to PATH".',s2t:"Descargar DesktopToggle",s2d:"Haz clic en el botón de descarga. Obtendrás un .zip con todo.",s3t:"Ejecutar el instalador",s3d:"Extrae el zip, doble clic en INSTALLA_DOPPIO_CLICK.bat. Acepta permisos.",s4t:"¡Listo!",s4d:"El icono aparece en la bandeja del sistema y arranca automáticamente con Windows.",req_title:"Requisitos",r1k:"Sistema operativo",r1v:"Windows 10 / 11",r2k:"Python",r2v:"3.10 o superior",r3k:"Uso de RAM",r3v:"~2 MB",r4k:"Espacio en disco",r4v:"< 5 MB",r5k:"Internet",r5v:"Solo para la instalación",r6k:"Permisos",r6v:"Administrador (solo install)",dl_title:"Descarga gratuita",dl_sub:"Sin registro. Sin adware. Solo el programa.",dl_btn:"Descargar DesktopToggle.zip",dl_v:"Versión 1.0",dl_req:"Python requerido",dl_free:"Gratis",faq_title:"Preguntas frecuentes",q1:"Mi antivirus lo marca como amenaza — ¿es seguro?",a1:"Es un falso positivo muy común con programas Python que usan APIs de Windows. El código fuente está en el zip. Agrega la carpeta a las exclusiones.",q2:"¿Cómo lo desinstalo?",a2:"Elimina el acceso directo en la carpeta de inicio de Windows, luego elimina la carpeta DesktopToggle.",q3:"¿Funciona en Windows 7 u 8?",a3:"Probado en Windows 10 y 11. Puede funcionar en versiones anteriores sin garantía.",q4:"¿Puedo cambiar el atajo de teclado?",a4:"¡Sí! Abre desktop_toggle.py y cambia la línea VK_B.",q5:"¿Recopila datos?",a5:"No. Sin conexión a internet, nada se envía a ningún lugar.",visible:"VISIBLES ●",hidden:"OCULTOS ●",trydemo:"▶ Probar demo"},
+
+  ru:{tag:"🖥 Бесплатная утилита для Windows",h1:"Скрывайте иконки рабочего стола",h1em:"мгновенно",sub:"Один клик по значку в трее или сочетание клавиш — иконки рабочего стола исчезают.",p1:"Бесплатно",p2:"Простая установка",p3:"Автозапуск",p4:"~2 МБ ОЗУ",p5:"Открытый код",feat_title:"Возможности",f1t:"Клик в трее",f1d:"Значок в системном трее позволяет переключать одним щелчком мыши.",f2t:"Горячая клавиша Ctrl+B",f2d:"Глобальное сочетание клавиш, работающее даже в других приложениях.",f3t:"Автозапуск",f3d:"Автоматически добавляется в автозагрузку Windows.",f4t:"Сверхлёгкий",f4d:"Использует ~2 МБ ОЗУ и практически ноль ЦП.",f5t:"Мгновенная приватность",f5d:"Демонстрация экрана? Скройте всё за миллисекунду.",f6t:"Чистый рабочий стол",f6d:"Идеально для скриншотов, презентаций или порядка на столе.",how_title:"Как это работает",s1t:"Установить Python",s1d:'Скачайте Python с python.org. Отметьте "Add Python to PATH".',s2t:"Скачать DesktopToggle",s2d:"Нажмите кнопку загрузки. Получите .zip со всем необходимым.",s3t:"Запустить установщик",s3d:"Распакуйте zip, дважды кликните INSTALLA_DOPPIO_CLICK.bat. Подтвердите права.",s4t:"Готово!",s4d:"Значок появится в трее и будет запускаться автоматически при каждом старте Windows.",req_title:"Требования",r1k:"Операционная система",r1v:"Windows 10 / 11",r2k:"Python",r2v:"3.10 или выше",r3k:"Использование ОЗУ",r3v:"~2 МБ",r4k:"Место на диске",r4v:"< 5 МБ",r5k:"Интернет",r5v:"Только для установки",r6k:"Права",r6v:"Администратор (только установка)",dl_title:"Бесплатная загрузка",dl_sub:"Без регистрации. Без рекламы. Только программа.",dl_btn:"Скачать DesktopToggle.zip",dl_v:"Версия 1.0",dl_req:"Требуется Python",dl_free:"Бесплатно",faq_title:"Вопросы и ответы",q1:"Антивирус помечает как угрозу — это безопасно?",a1:"Это распространённый ложный сигнал с Python-программами, использующими Windows API. Исходный код включён в zip. Добавьте папку в исключения антивируса.",q2:"Как удалить программу?",a2:"Удалите ярлык из папки автозагрузки Windows, затем удалите папку DesktopToggle.",q3:"Работает на Windows 7 или 8?",a3:"Протестировано на Windows 10 и 11. Может работать на более старых версиях без гарантий.",q4:"Могу ли я изменить сочетание клавиш?",a4:"Да! Откройте desktop_toggle.py и измените строку VK_B.",q5:"Собирает ли данные?",a5:"Нет. Нет подключения к интернету, ничего не отправляется.",visible:"ВИДНЫ ●",hidden:"СКРЫТЫ ●",trydemo:"▶ Попробовать демо"},
+
+  zh:{tag:"🖥 免费 Windows 工具",h1:"立即隐藏桌面图标",h1em:"一键搞定",sub:"点击托盘图标或按下键盘快捷键——桌面图标瞬间消失。简单、轻量、静默运行。",p1:"免费",p2:"安装简单",p3:"随Windows自启",p4:"~2 MB内存",p5:"开源",feat_title:"功能特点",f1t:"托盘点击",f1d:"系统托盘图标，单击左键即可切换显示/隐藏。",f2t:"快捷键 Ctrl+B",f2d:"全局快捷键，在其他应用程序中也能使用。",f3t:"自动启动",f3d:"自动添加到Windows开机启动项。",f4t:"极度轻量",f4d:"仅占用约2 MB内存，CPU占用几乎为零。",f5t:"即时隐私保护",f5d:"屏幕共享前，一毫秒内隐藏所有桌面内容。",f6t:"整洁桌面",f6d:"适合截图、演示或保持桌面整洁。",how_title:"使用方法",s1t:"安装 Python",s1d:'从 python.org 下载 Python。安装时勾选"Add Python to PATH"。',s2t:"下载 DesktopToggle",s2d:"点击下载按钮，获取包含所有必要文件的 .zip 压缩包。",s3t:"运行安装程序",s3d:"解压zip文件，双击 INSTALLA_DOPPIO_CLICK.bat，确认管理员权限。30秒完成。",s4t:"完成！",s4d:"图标出现在系统托盘中，之后每次开机自动运行。",req_title:"系统要求",r1k:"操作系统",r1v:"Windows 10 / 11",r2k:"Python",r2v:"3.10 或更高",r3k:"内存占用",r3v:"~2 MB",r4k:"磁盘空间",r4v:"< 5 MB",r5k:"网络连接",r5v:"仅安装时需要",r6k:"权限",r6v:"管理员（仅安装）",dl_title:"免费下载",dl_sub:"无需注册。无广告软件。只有程序本身。",dl_btn:"下载 DesktopToggle.zip",dl_v:"版本 1.0",dl_req:"需要 Python",dl_free:"免费",faq_title:"常见问题",q1:"我的杀毒软件将其标记为威胁——安全吗？",a1:"这是使用Windows API的Python程序常见的误报。源代码包含在zip中，任何人都可查看。将文件夹添加到杀毒软件的排除列表即可。",q2:"如何卸载程序？",a2:"删除Windows启动文件夹中的快捷方式，然后删除DesktopToggle文件夹。",q3:"支持Windows 7或8吗？",a3:"已在Windows 10和11上测试。可能支持旧版本，但不保证。",q4:"可以更改快捷键吗？",a4:"可以！打开 desktop_toggle.py，修改 VK_B 所在行。",q5:"会收集数据吗？",a5:"不会。无网络连接，不发送任何内容。只做一件事：显示和隐藏桌面图标。",visible:"可见 ●",hidden:"已隐藏 ●",trydemo:"▶ 试用演示"}
+}
+
+let currentLang = 'en'
+function setLang(lang){
+  currentLang = lang
+  const t = T[lang]
+  document.querySelectorAll('[data-i18n]').forEach(el=>{
+    const key = el.getAttribute('data-i18n')
+    if(t[key] !== undefined) el.innerHTML = t[key]
+  })
+  document.querySelectorAll('.lang-btn').forEach(btn=>{
+    btn.classList.toggle('active', btn.textContent.toLowerCase()===lang || (lang==='zh'&&btn.textContent==='中文'))
+  })
+  document.documentElement.lang = lang
+}
+</script>
+</body>
+</html>
