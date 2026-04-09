@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://tuonome.github.io/desktop-toggle/sitemap.xml
+Sitemap: https://desktop-toggle.netlify.app/sitemap.xml
